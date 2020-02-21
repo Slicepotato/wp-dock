@@ -1,0 +1,18 @@
+version: '3'
+services:
+  wp:
+    build:
+        context: .
+        dockerfile: docker/Dockerfile
+    ports:
+      - "8000:80"
+    environment:
+      WORDPRESS_DB_PASSWORD: ${AUTH}
+  mysql:
+    image: "mysql:5.7"
+    environment:
+        MYSQL_ROOT_PASSWORD: ${AUTH}
+    volumes:
+        - "wp-data:/var/lib/mysql"
+volumes:
+    wp-data:
