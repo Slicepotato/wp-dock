@@ -1,22 +1,21 @@
 version: '3'
 services:
-  wp:
+  wordpress:
     depends_on: 
       - mysql
+    image: wordpress:latest
     restart: always
     volumes: 
-      - ./wp-content:${APP_DIR}
+      - "./wp-content:/var/www/html/wp-content"
     environment: 
       WORDPRESS_DB_HOST: mysql:${DB_PORT}
       WORDPRESS_DB_PASSWORD: ${AUTH}
-    build:
-        context: .
-        dockerfile: docker/Dockerfile
     ports:
       - 8000:80
       - 443:443
     networks: 
       - back
+
   mysql:
     image: mysql:${DB_VER}
     restart: always
@@ -26,6 +25,7 @@ services:
       - wp-data:${DB_DIR}
     networks:
       - back
+
   phpmyadmin:
     depends_on: 
       - mysql
@@ -38,7 +38,10 @@ services:
       MYSQL_ROOT_PASSWORD: ${AUTH}
     networks:
       - back
+
+
 networks:
   back:
+
 volumes:
   wp-data:
