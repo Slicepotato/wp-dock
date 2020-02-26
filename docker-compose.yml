@@ -7,7 +7,7 @@ services:
     volumes: 
       - ./wp-content:/home/mjohnson/www/wp-sandbox/wp-content
     environment: 
-      WORDPRESS_DB_HOST: ${DBHOST}
+      WORDPRESS_DB_HOST: mysql:${DB_PORT}
       WORDPRESS_DB_PASSWORD: ${AUTH}
     build:
         context: .
