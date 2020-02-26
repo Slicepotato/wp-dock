@@ -5,7 +5,7 @@ services:
       - mysql
     restart: always
     volumes: 
-      - ./wp-content:/home/mjohnson/www/wp-sandbox/wp-content
+      - ./wp-content:${APP_DIR}
     environment: 
       WORDPRESS_DB_HOST: mysql:${DB_PORT}
       WORDPRESS_DB_PASSWORD: ${AUTH}
@@ -13,17 +13,17 @@ services:
         context: .
         dockerfile: docker/Dockerfile
     ports:
-      - 80:80
+      - 8000:80
       - 443:443
     networks: 
       - back
   mysql:
-    image: "mysql:5.7"
+    image: mysql:${DB_VER
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${AUTH}
     volumes:
-      - "wp-data:/var/lib/mysql"
+      - wp-data:${DB_DIR}
     networks:
       - back
   phpmyadmin:
