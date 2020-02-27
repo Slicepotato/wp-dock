@@ -6,7 +6,7 @@ services:
     image: wordpress:latest
     restart: always
     volumes: 
-      - "./wp-content:/var/www/html/wp-content"
+      - ${APP_DIR}:/var/www/html/wp-content
     environment: 
       WORDPRESS_DB_HOST: mysql:${DB_PORT}
       WORDPRESS_DB_PASSWORD: ${AUTH}
